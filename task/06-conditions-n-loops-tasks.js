@@ -49,7 +49,11 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    throw new Error('Not implemented');
+    var res = 1;
+    for (var i = 1; i <= n; ++i) {
+        res *= i;
+    }
+    return res;
 }
 
 
@@ -66,7 +70,11 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    throw new Error('Not implemented');
+    var sum = 0;
+    for (var i = n1; i <= n2; ++i) {
+        sum += i;
+    }
+    return sum;
 }
 
 
@@ -85,7 +93,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    throw new Error('Not implemented');
+     return (a + b > c) && (a + c > b) && (c + b > a);
 }
 
 
@@ -122,7 +130,15 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    rect1.right = rect1.left + rect1.width;
+    rect1.bottom = rect1.top + rect1.height;
+    rect2.right = rect2.left + rect2.width;
+    rect2.bottom = rect2.top + rect2.height;
+
+    return rect1.left < rect2.right
+        && rect1.right > rect2.left
+        && rect1.top < rect2.bottom
+        && rect1.bottom > rect2.top;
 }
 
 
@@ -153,7 +169,8 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+    const center = circle.center;
+    return circle.radius > Math.hypot(point.x - center.x, point.y - center.y);
 }
 
 
@@ -169,7 +186,20 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+    var i, j, isUnique;
+    for (i = 0; i < str.length; ++i) {
+        isUnique = true;
+        for (j = 0; j < str.length; ++j) {
+            if (str[i] === str[j] && i !== j) {
+                isUnique = false;
+                break;
+            }
+        }
+        if (isUnique) {
+            return str[i];
+        }
+    }
+    return null;
 }
 
 
@@ -195,7 +225,11 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+    const start = isStartIncluded ? '[' : '(';
+    const end = isEndIncluded ? ']' : ')';
+    const max = Math.max(a, b);
+    const min = Math.min(a, b);
+    return `${start}${min}, ${max}${end}`;
 }
 
 
@@ -212,7 +246,11 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+    var res = '';
+    for (var i = str.length - 1; i >= 0; --i) {
+        res += str[i];
+    }
+    return res;
 }
 
 
@@ -229,7 +267,13 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+    var res = 0;
+    while (num > 0) {
+        res *= 10;
+        res += num % 10;
+        num = Math.trunc(num / 10);
+    }
+    return res;
 }
 
 
@@ -434,7 +478,23 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    for (let lane of getLanes()) {
+        lane.length = 3;
+        const first = lane[0];
+        if (first && [...lane].every(x => x === first)) {
+            return first;
+        }
+    }
+    return undefined;
+    
+    function* getLanes() {
+        yield* position;
+        yield position.map(x => x[0]);
+        yield position.map(x => x[1]);
+        yield position.map(x => x[2]);
+        yield position.map((x, i) => x[i]);
+        yield position.map((x, i) => x[x.length - i - 1]);
+    }
 }
 
 
