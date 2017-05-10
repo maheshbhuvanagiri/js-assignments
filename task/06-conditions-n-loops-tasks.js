@@ -478,9 +478,9 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    for (let lane of getLanes()) {
+    for (var lane of getLanes()) {
         lane.length = 3;
-        const first = lane[0];
+        var first = lane[0];
         if (first && [...lane].every(x => x === first)) {
             return first;
         }
