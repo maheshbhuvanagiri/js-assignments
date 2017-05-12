@@ -56,6 +56,7 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
+    //todo it's not necessary to save boolean variable
     var year = date.getFullYear(), 
         isLeapYear = false;
     if (year % 4 == 0 && year % 100 !== 0 || year % 400 == 0){

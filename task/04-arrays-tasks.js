@@ -38,6 +38,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
+    //todo please use some other approach. from is experimental technology, it doesn't support in IE
    return Array.from({ length: len }, (value, index) => index * 2 + 1);
 }
 
@@ -269,6 +270,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
+    //todo nice solution but difficult to read a little bit
    return arr.reduce((p, c, i) => p.concat(Array(i + 1).fill(c)), []);
 }
 
@@ -338,6 +340,7 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 function getItemsSum(arr) {
+    //todo you can skip initial value, it will be first element by default
    return arr.reduce((p, c) => p + c, 0);
 }
  
@@ -484,6 +487,7 @@ function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 function distinct(arr) {
+    //todo difficult to read. a lot of actions in one line
    return Array.from(arr.reduce((p, c) => p.add(c), new Set()));
 }
 
@@ -581,6 +585,7 @@ function getElementByIndexes(arr, indexes) {
  */
 function swapHeadAndTail(arr) {
     const mid = Math.ceil(arr.length / 2);
+    //todo could we find way without traversing?
     return arr.map((v, i) => (i < mid) ? arr[mid + i] || v : arr[i - mid]);
 }
 

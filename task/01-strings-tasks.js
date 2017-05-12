@@ -55,6 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
+    //todo use the same space between variables and text
     return "Hello, "+ firstName +" "+ lastName+ "!";
 }
 
@@ -69,6 +70,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
+    // todo try to use regexp better
     return value.replace(/Hello, /g,"").replace(/!/g,"");
 }
 
@@ -114,6 +116,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
+    //todo repeat is not standardized.
     return value.repeat(count);
 }
 
@@ -201,6 +204,7 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
+    //todo repeat is not standardized. please use other function
     var spaces=" ".repeat(width-2);
     var top="┌"+"─".repeat(width-2)+"┐";
     var middle ="│"+spaces+"│"+"\n";
@@ -225,8 +229,10 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
+    //todo don't use _ as variable
     return str.split('').map(function (_) {
         if (!_.match(/[A-Za-z]/)) return _;
+        //todo very difficult logic. it could be simple. or please write comments, use name of variables
         let c = Math.floor(_.charCodeAt(0) / 97);
         let k = (_.toLowerCase().charCodeAt(0) - 83) % 26 || 26;
         return String.fromCharCode(k + ((c == 0) ? 64 : 96));
@@ -279,6 +285,7 @@ function getCardId(value) {
     var card = value[0];
     var mast = value.slice(-1);
 
+    //todo very nice solution but I don't find meaning for mast. Could we change variable name for something suitable
     return '♣♦♥♠'.indexOf(mast) * 13 + 'A234567891JQK'.indexOf(card);
 }
 

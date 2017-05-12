@@ -89,6 +89,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
+    //todo what is c? why such difficult function?
     var c = 0;
     var x;
     if (b < 0) {
@@ -135,6 +136,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
+    //todo return should be a number. Try to use math operation here
     var st = value.toString();
     return st.charAt(st.length - 1);
 }
@@ -152,6 +154,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
+    //todo result should be a number
     return value;
 }
 
@@ -213,6 +216,7 @@ function roundToPowerOfTen(num, pow) {
  */
 function isPrime(n) {
     var prime = n != 1;
+    //todo you can decrease count of loop a little bit
     for (var i = 2; i < n; i++) {
         if (n % i == 0) {
             prime = false;
