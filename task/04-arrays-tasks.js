@@ -584,9 +584,11 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    const mid = Math.ceil(arr.length / 2);
     //todo could we find way without traversing?
-    return arr.map((v, i) => (i < mid) ? arr[mid + i] || v : arr[i - mid]);
+    let l = Math.floor(arr.length / 2);
+    let tail = arr.splice(-l,l).concat(arr);
+    let head = tail.concat(tail.splice(l,l));
+    return head;
 }
 
 

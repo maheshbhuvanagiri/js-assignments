@@ -8,6 +8,17 @@
  ********************************************************************************************/
 
 
+if (!String.prototype.stringRepeat) {
+    String.prototype.stringRepeat = function (count) {
+        var str = '' + this,
+            repeatValue = '';
+        while (count > 0) {
+            repeatValue += str;
+            count--;
+        }
+        return repeatValue;
+    }
+}
 
 /**
  * Returns the result of concatenation of two strings.
@@ -56,7 +67,7 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
     //todo use the same space between variables and text
-    return "Hello, "+ firstName +" "+ lastName+ "!";
+    return "Hello, " + firstName + " " + lastName + "!";
 }
 
 /**
@@ -71,7 +82,7 @@ function getStringFromTemplate(firstName, lastName) {
  */
 function extractNameFromTemplate(value) {
     // todo try to use regexp better
-    return value.replace(/Hello, /g,"").replace(/!/g,"");
+    return value.replace(/(Hello, )|(!)/g,"");
 }
 
 
@@ -117,7 +128,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
     //todo repeat is not standardized.
-    return value.repeat(count);
+    return value.stringRepeat(count)
 }
 
 /**
@@ -205,13 +216,12 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     //todo repeat is not standardized. please use other function
-    var spaces=" ".repeat(width-2);
-    var top="┌"+"─".repeat(width-2)+"┐";
+    var spaces= " ".stringRepeat(width-2);
+    var top="┌"+"─".stringRepeat(width-2)+"┐";
     var middle ="│"+spaces+"│"+"\n";
-    var bottom ="└"+"─".repeat(width-2)+"┘";
-    return top+"\n"+middle.repeat(height-2)+bottom+"\n";;
+    var bottom ="└"+"─".stringRepeat(width-2)+"┘";
+    return top+"\n"+middle.stringRepeat(height-2)+bottom+"\n";;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -230,12 +240,16 @@ function getRectangleString(width, height) {
  */
 function encodeToRot13(str) {
     //todo don't use _ as variable
-    return str.split('').map(function (_) {
-        if (!_.match(/[A-Za-z]/)) return _;
+    return str.split('').map(function (char) {
+        if (!char.match(/[A-Za-z]/)) {
+            return char
+        };
         //todo very difficult logic. it could be simple. or please write comments, use name of variables
-        let c = Math.floor(_.charCodeAt(0) / 97);
-        let k = (_.toLowerCase().charCodeAt(0) - 83) % 26 || 26;
-        return String.fromCharCode(k + ((c == 0) ? 64 : 96));
+        //is Character small letter :1 else 0
+        let isSamllLetter = Math.floor(char.charCodeAt(0) / 97);
+        //index calculation of charcter making n as 0 index
+        let charIndex = (char.toLowerCase().charCodeAt(0) - 83) % 26 || 26;
+        return String.fromCharCode(charIndex + (isSamllLetter ? 96: 64));
     }).join('');
 }
 
@@ -283,10 +297,10 @@ function isString(value) {
  */
 function getCardId(value) {
     var card = value[0];
-    var mast = value.slice(-1);
+    var symbol = value.slice(-1);
 
     //todo very nice solution but I don't find meaning for mast. Could we change variable name for something suitable
-    return '♣♦♥♠'.indexOf(mast) * 13 + 'A234567891JQK'.indexOf(card);
+    return '♣♦♥♠'.indexOf(symbol) * 13 + 'A234567891JQK'.indexOf(card);
 }
 
 

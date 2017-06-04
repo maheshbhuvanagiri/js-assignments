@@ -298,7 +298,15 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    let sum = 0;
+    ccn = ccn.toString();
+    for (let i = 0; i < ccn.length; i++){
+        if (i % 2 != ccn.length % 2)
+            sum += ccn[i] * 1;
+        else
+            sum += ccn[i] * 2 + (ccn[i] > 4 ? -9 : 0);
+    }
+    return sum % 10 === 0;
 }
 
 
@@ -317,7 +325,15 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+    while (num > 9) {
+        let i = num;
+        num = 0;
+        while (i > 0) {
+            num += i % 10
+            i = Math.floor(i / 10);
+        }
+    }
+    return num;
 }
 
 
@@ -343,7 +359,16 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    let list = [],
+        open  = ['[', '(', '{', '<'],
+        close = [']', ')', '}', '>'];
+    for (let i = 0; i < str.length; i++) {
+        if (open.indexOf(str[i]) >= 0)
+            list.push(open.indexOf(str[i]));
+        else if (close[list.pop()] != str[i])
+            return false;
+    }
+    return list.length == 0;
 }
 
 
@@ -379,7 +404,32 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    let diff = endDate.getTime() - startDate.getTime(),
+        sec = 1000, 
+        min = sec * 60, 
+        hour = min * 60, 
+        day = hour * 24; 
+    if (diff <= 45 * sec)
+        return 'a few seconds ago';
+    if (diff <= 90 * sec)
+        return 'a minute ago';
+    if (diff <= 45 * min)
+        return `${Math.round((diff - 1) / min)} minutes ago`;
+    if (diff <= 90 * min)
+        return 'an hour ago';
+    if (diff <= 22 * hour)
+        return `${Math.round((diff - 1) / hour)} hours ago`;
+    if (diff <= 36 * hour)
+        return 'a day ago';
+    if (diff <= 25 * day)
+        return `${Math.round((diff - 1) / day)} days ago`;
+    if (diff <= 45 * day)
+        return 'a month ago';
+    if (diff <= 345 * day)
+        return `${Math.round(diff / 30 / day)} months ago`;
+    if (diff <= 545 * day)
+        return 'a year ago';
+    return `${Math.round(diff / 365 / day)} years ago`;
 }
 
 
@@ -403,7 +453,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return num.toString(n);
 }
 
 
@@ -420,7 +470,20 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    let path = '';
+    for (let i = 0; i < pathes[0].length; i++) {
+        let b = true;
+        for (let j = 1; j < pathes.length; j++)
+            if (pathes[0][i] != pathes[j][i]) {
+                b = false;
+                break;
+            }
+        if (!b)
+            break;
+        else
+            path += pathes[0][i];
+    }
+    return path.slice(0, path.lastIndexOf('/') + 1);
 }
 
 
@@ -443,7 +506,16 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    let result = [];
+    for (let i = 0; i < m1.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < m2[i].length; j++) {
+            result[i][j] = 0;
+            for (let t = 0; t < m1[i].length; t++)
+                result[i][j] += m1[i][t] * m2[t][j];
+        }
+    }
+    return result;
 }
 
 

@@ -90,15 +90,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  */
 function getLinearEquationRoot(a, b) {
     //todo what is c? why such difficult function?
-    var c = 0;
-    var x;
-    if (b < 0) {
-        x = (c + Math.abs(b)) / a;
-    }
-    else {
-        x = (c - b) / a;
-    }
-    return x;
+    return (0 - b)/a;
 }
 
 
@@ -137,8 +129,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
     //todo return should be a number. Try to use math operation here
-    var st = value.toString();
-    return st.charAt(st.length - 1);
+    return value % 10;
 }
 
 
