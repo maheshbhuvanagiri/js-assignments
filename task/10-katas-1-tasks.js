@@ -17,8 +17,52 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    var sides = ['N', 'E', 'S', 'W'];  // use array of cardinal directions only!
+    let b = 'b';
+    let azimuth = 0, cardinalDirections = [];
+    for (let i = 0; i < sides.length; i++) {
+        for (let position = 0; position < 8; position++) {
+            let currentDirection = sides[i],
+                nextDirection = sides[(i + 1) % 4],
+                cn = currentDirection + nextDirection,
+                nc = nextDirection + currentDirection,
+                abbr;
+
+            switch (position) {
+                case 0:
+                    abbr = currentDirection;
+                    break;
+                case 1:
+                    abbr = currentDirection + b + nextDirection;
+                    break;
+                case 2:
+                    abbr = (i % 2) ? cn + currentDirection : currentDirection + cn;
+                    break;
+                case 3:
+                    abbr = ((i % 2) ? nc : cn) + b + currentDirection;
+                    break;
+                case 4:
+                    abbr = (i % 2) ? nc : cn;
+                    break;
+                case 5:
+                    abbr = ((i % 2) ? nc : cn) + b + nextDirection;
+                    break;
+                case 6:
+                    abbr = nextDirection + ((i % 2) ? nc : cn);
+                    break;
+                case 7:
+                    abbr = nextDirection + b + currentDirection;
+                    break;
+                default:
+                    abbr = currentDirection;
+                    break;
+            }
+            cardinalDirections.push({ abbreviation: abbr, azimuth: azimuth });
+            azimuth += 11.25;
+        }
+    }
+    console.log(cardinalDirections);
+    return cardinalDirections;
 }
 
 
@@ -141,9 +185,9 @@ function extractRanges(nums) {
 }
 
 module.exports = {
-    createCompassPoints : createCompassPoints,
-    expandBraces : expandBraces,
-    getZigZagMatrix : getZigZagMatrix,
-    canDominoesMakeRow : canDominoesMakeRow,
-    extractRanges : extractRanges
+    createCompassPoints: createCompassPoints,
+    expandBraces: expandBraces,
+    getZigZagMatrix: getZigZagMatrix,
+    canDominoesMakeRow: canDominoesMakeRow,
+    extractRanges: extractRanges
 };
